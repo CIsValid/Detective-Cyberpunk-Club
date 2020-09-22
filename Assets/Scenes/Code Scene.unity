@@ -313,7 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 0}
   cameraUpDownOffsetSlider: 0.00004
-  cameraSideOffsetSlider: 0.00008
+  cameraSideOffsetSlider: 0.00001
   breathingFrequency: 1
 --- !u!1 &1989646487
 GameObject:
