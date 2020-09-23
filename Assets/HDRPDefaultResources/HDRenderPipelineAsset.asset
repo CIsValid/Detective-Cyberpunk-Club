@@ -151,11 +151,10 @@ MonoBehaviour:
   m_RenderPipelineResources: {fileID: 11400000, guid: 3ce144cff5783da45aa5d4fdc2da14b7, type: 2}
   m_RenderPipelineRayTracingResources: {fileID: 0}
   m_DefaultVolumeProfile: {fileID: 11400000, guid: b289bb2a7538ada4e86cec766fd51969, type: 2}
-  m_DefaultLookDevProfile: {fileID: 0}
+  m_DefaultLookDevProfile: {fileID: 11400000, guid: 254c4fe87beb7be4fa72e1681edbed02, type: 2}
+  m_RenderPipelineEditorResources: {fileID: 11400000, guid: bf65aa0c6e3e70c4c8b484c4ddac473e, type: 2}
   m_RenderingPathDefaultCameraFrameSettings:
-    bitDatas:
-      data1: 70300024700749
-      data2: 4539628425463136256
+    bitDatas: {}
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -164,9 +163,7 @@ MonoBehaviour:
     maximumLODLevelQualityLevel: 0
     materialQuality: 0
   m_RenderingPathDefaultBakedOrCustomReflectionFrameSettings:
-    bitDatas:
-      data1: 64942043591501
-      data2: 4539628424389459968
+    bitDatas: {}
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -175,9 +172,7 @@ MonoBehaviour:
     maximumLODLevelQualityLevel: 0
     materialQuality: 0
   m_RenderingPathDefaultRealtimeReflectionFrameSettings:
-    bitDatas:
-      data1: 69554681159501
-      data2: 4539628424657895424
+    bitDatas: {}
     lodBias: 1
     lodBiasMode: 0
     lodBiasQualityLevel: 0
@@ -185,6 +180,7 @@ MonoBehaviour:
     maximumLODLevelMode: 0
     maximumLODLevelQualityLevel: 0
     materialQuality: 0
+  <frameSettingsHistory>k__BackingField: 0
   m_RenderPipelineSettings:
     supportShadowMask: 1
     supportSSR: 0
@@ -231,7 +227,6 @@ MonoBehaviour:
       planarReflectionCacheCompressed: 0
       skyReflectionSize: 256
       skyLightingOverrideLayerMask:
-        serializedVersion: 2
         m_Bits: 0
       supportFabricConvolution: 0
       maxDirectionalLightsOnScreen: 16
@@ -307,14 +302,14 @@ MonoBehaviour:
       - 8
       - 13
       DoFResolution: 040000000200000001000000
-      DoFHighQualityFiltering: 000101
+      DoFHighQualityFiltering: 
       MotionBlurSampleCount: 04000000080000000c000000
       BloomRes: 040000000200000002000000
-      BloomHighQualityFiltering: 000101
+      BloomHighQualityFiltering: 
       ChromaticAberrationMaxSamples: 03000000060000000c000000
     lightSettings:
       useContactShadow:
-        m_Values: 
+        m_Values: []
         m_SchemaId:
           m_Id: 
     maximumLODLevel:
@@ -330,9 +325,9 @@ MonoBehaviour:
         m_Id: With3Levels
     lightingQualitySettings:
       AOStepCount: 040000000600000010000000
-      AOFullRes: 000001
+      AOFullRes: 
       AOMaximumRadiusPixels: 200000002800000050000000
-      AOBilateralUpsample: 000101
+      AOBilateralUpsample: 
       AODirectionCount: 010000000200000004000000
       ContactShadowSampleCount: 060000000a00000010000000
       SSRMaxRaySteps: 100000002000000040000000
@@ -343,8 +338,10 @@ MonoBehaviour:
   m_DefaultMaterialQualityLevel: 4
   diffusionProfileSettings: {fileID: 0}
   diffusionProfileSettingsList:
-  - {fileID: 11400000, guid: 6fee6886ae571a9499a7034f263e1614, type: 2}
-  - {fileID: 11400000, guid: 8a36568c642f8b64584d98ab1a946ed6, type: 2}
+  - {fileID: 11400000, guid: cb2bd864c1a146447997baa1cd7b544c, type: 2}
+  - {fileID: 11400000, guid: 5a0eb554793a626409ebe044cedcc1e0, type: 2}
   beforeTransparentCustomPostProcesses: []
   beforePostProcessCustomPostProcesses: []
   afterPostProcessCustomPostProcesses: []
+  defineArray:
+  - 
