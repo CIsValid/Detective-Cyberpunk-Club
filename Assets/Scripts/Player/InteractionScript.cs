@@ -61,7 +61,7 @@ public class InteractionScript : MonoBehaviour
 
         // On button press Pick up or drop
 
-        if(Input.GetButtonDown("Fire"))
+        if(Input.GetMouseButtonDown(1))
         {
             if(currentInteractedItem == null)
             {
