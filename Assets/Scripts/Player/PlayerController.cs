@@ -65,13 +65,20 @@ public class PlayerController : MonoBehaviour
 		controller.Move(velocity * Time.deltaTime);
 		currentSpeed = new Vector2(controller.velocity.x, controller.velocity.z).magnitude;
 
-        if(currentSpeed != 0)
-        {
-            isMoving = true;
-        }
-        else{
-            isMoving = false;
-        }
+		switch (currentSpeed != 0)
+		{
+			case true:
+
+			isMoving = true;
+
+			break;
+
+			case false:
+
+			isMoving = false;
+
+			break;
+		}
 
 		if (controller.isGrounded)
 		{

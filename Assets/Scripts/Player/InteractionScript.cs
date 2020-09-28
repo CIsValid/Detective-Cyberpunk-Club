@@ -62,7 +62,7 @@ public class InteractionScript : MonoBehaviour
 
         // On button press Pick up or drop
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0))
         {
             if(currentInteractedItem == null)
             {

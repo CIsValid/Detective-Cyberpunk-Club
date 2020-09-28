@@ -62,13 +62,11 @@ public class CameraContoller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isPlayerMoving = playerController.isMoving;
-
         CameraMovement();
 
         // Breathing
 
-        if(isPlayerMoving)
+        if(playerController.isMoving)
         {
             HeadBob(breathingFrequency, runningCameraSideOffsetSlider,runningCameraUpDownOffsetSlider);
             breathingFrequency += Time.deltaTime;
