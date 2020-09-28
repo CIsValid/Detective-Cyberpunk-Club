@@ -55,6 +55,7 @@ public class InteractionScript : MonoBehaviour
         {
             lookObject = hit.collider.transform.root.gameObject;
         }
+        else
         {
             lookObject = null;
         }
