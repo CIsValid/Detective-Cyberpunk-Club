@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1227855741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227855742}
+  m_Layer: 0
+  m_Name: TempHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1227855742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227855741}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.05, z: 1.928}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 763980443636131338}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &763980442701258697
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +42,7 @@ GameObject:
   - component: {fileID: 763980442701258694}
   - component: {fileID: 763980442701258693}
   - component: {fileID: 763980442701258692}
+  - component: {fileID: 1834893646}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -86,6 +117,27 @@ MonoBehaviour:
   turnSmoothTime: 0
   speedSmoothTime: 0
   isMoving: 0
+--- !u!114 &1834893646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763980442701258697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 886d20631891ea84ebcb52dcc252b6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentPickUp: {fileID: 1227855742}
+  currentInteractedItem: {fileID: 0}
+  sphereCastSize: 0.5
+  indexForMask: 9
+  lookObject: {fileID: 0}
+  rotationSpeed: 100
+  maxSpeed: 6000
+  minSpeed: 0
+  maxDistance: 3
 --- !u!1 &763980443636131343
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,7 +167,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.6459999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1227855742}
   m_Father: {fileID: 763980442701258695}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -183,10 +236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 763980442701258697}
-  mouseSensitivity: 10
+  mouseSensitivity: 4
   dstFromTarget: 0
   pitchMinMax: {x: -40, y: 85}
-  rotationSmoothTime: 0.06
+  rotationSmoothTime: 0.01
   cameraUpDownOffsetSlider: 0.003
   cameraSideOffsetSlider: 0.0001
   runningCameraUpDownOffsetSlider: 0.01
