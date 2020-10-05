@@ -1,70 +1,66 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
+using System.Collections;
+using Random = UnityEngine.Random;
 
 namespace Music
 {
+    [RequireComponent(typeof(AudioSource))]
     public class MusicPlayer : MonoBehaviour
     {
-        [Header("Audio Source")] [Required]
+        [Header("Audio Source")] [Required]    
         public AudioSource audioSource;
         
         public List<AudioClip> playlist = new List<AudioClip>();
 
+        private AudioClip lastPlayedSong;
+
+        private int songRandomizer;
         private int songNr;
         private int playlistCount;
-
-        private void Awake()
-        {
-            CreatePlaylist();
-        }
-
+        
         // Start is called before the first frame update
         private void Start()
         {
-            AddSongsFromList();
+            audioSource = this.gameObject.GetComponent<AudioSource>();
+            
+            CreatePlaylist();
 
-            if (audioSource.clip == null)
-            {
-                audioSource.clip = playlist[songNr];
-            }
+            songRandomizer = Random.Range(0, playlist.Count);
 
-        }
+            StartCoroutine(StartPlay());
 
-        // Update is called once per frame
-        private void Update()
-        {
-            StartNextSong();
         }
 
         private void CreatePlaylist()
         {
-            Directory.CreateDirectory(@"C:\MusicForDetective");
-                
-        }
-
-        private void AddSongsFromList()
-        {
-            for (int i = 0; i < playlist.Count; i++)
+            AudioClip[] arrayStore = Resources.LoadAll<AudioClip>("Songs");
+            
+            for (int i = 0; i < arrayStore.Length; i++)
             {
-                if (File.Exists(i.ToString()))
-                {
-                    return;
-                }
-
-                else
-                {
-                    File.Create(i.ToString());
-                }
-                
+                playlist.Add(arrayStore[i]);
             }
+          
         }
 
-        private void StartNextSong()
+        private void Update()
         {
-            if (audioSource.clip.length != 0) return;
-            playlistCount = (songNr += 1) % playlist.Count;
+            StartCoroutine(StartPlay());
+        }
+
+        IEnumerator StartPlay()
+        {
+            while (audioSource.isPlaying)
+            {
+                yield return null;
+            }
+            
+            playlistCount = (songRandomizer += 1) % playlist.Count;
             audioSource.clip = playlist[playlistCount];
+            audioSource.Play();
+
+            yield return null;
+
         }
     }
 }
