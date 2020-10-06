@@ -30,6 +30,8 @@ namespace Music
 
             StartCoroutine(StartPlay());
 
+            audioSource.time += 20;
+
         }
 
         private void CreatePlaylist()
