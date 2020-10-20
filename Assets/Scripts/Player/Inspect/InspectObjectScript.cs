@@ -23,6 +23,7 @@ public class InspectObjectScript : MonoBehaviour
 
     [Header("Item Info")]
     public string itemName;
+    [Multiline]
     public string itemDescripion;
     public string interactionMessage;
 
