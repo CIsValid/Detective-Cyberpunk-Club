@@ -32483,9 +32483,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8622426514715832396, guid: 179a82ca10569ed4981f6ca861766456, type: 3}
+      propertyPath: m_AllowDynamicResolution
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8622426514715832398, guid: 179a82ca10569ed4981f6ca861766456, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 179a82ca10569ed4981f6ca861766456, type: 3}
