@@ -20,6 +20,19 @@ public class InspectObjectScript : MonoBehaviour
 
     [Header("Distance To Start Highlight")]
     public float detectionDistance = 20f;
+    
+    [Header("Inspection Camera Offset")]
+    public float cameraOffset = 0f;
+
+    [Header("Object Scale")]
+    public Vector3 InspectionScale;
+    private Vector3 oldScale;
+    
+    [Header("Blink Speed")]
+    public float blinkSpeed;
+    
+    [Header("Transition Speed")]
+    public float transitionSpeed = 10f;
 
     [Header("Item Info")]
     public string itemName;
@@ -29,13 +42,13 @@ public class InspectObjectScript : MonoBehaviour
 
     // Private Variables
     // Object Position and Rotation
-    private Vector3 currentObjectPos;
-    private Quaternion currentObjectRot;
-    private Vector3 oldPosition;
-    private Quaternion oldRotation;
+    private Vector3 oldObjectPos;
+    private Quaternion oldObjectRot;
 
     private CameraContoller cameraContoller;
     private PlayerController playerController;
+
+    private Outline outline;
 
     // Camera
     private Camera mainCamera;
@@ -46,6 +59,13 @@ public class InspectObjectScript : MonoBehaviour
     // Bool
 
     private bool hasPressedToInteract;
+    private bool hasBeenHighlighted;
+
+    public float timeSpeed = 4;
+
+    private bool timeReached;
+
+    private bool canInteract;
 
     private void Start()
     {
@@ -55,40 +75,93 @@ public class InspectObjectScript : MonoBehaviour
         m_Renderer = this.gameObject.GetComponent<MeshRenderer>();
         mainCamera = Camera.main;
         cameraContoller = mainCamera.GetComponent<CameraContoller>();
-        currentObjectPos = this.transform.localPosition;
-        oldPosition = this.transform.localPosition;
-        oldRotation = this.transform.localRotation;
+        oldObjectPos = currentItemObject.transform.localPosition;
+        oldObjectRot = currentItemObject.transform.localRotation;
+
+        outline = currentItemObject.GetComponent<Outline>();
+        
+        transitionSpeed = Time.deltaTime * transitionSpeed;
+
+        oldScale = currentItemObject.transform.localScale;
     }
 
     private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            if(!hasPressedToInteract && m_Renderer.isVisible)text.text = interactionMessage;
+            if (!hasPressedToInteract && m_Renderer.isVisible)
+            {
+                text.text = interactionMessage;
+                canInteract = true;
+            }
             else
             {
                 text.text = null;
-            }
-
-            if(Input.GetKey(KeyCode.E))
-            {
-                hasPressedToInteract = true;
-                StartInspection();
-                text.text = null;
-            }
-
-            if (Input.GetKey(KeyCode.Escape) && hasPressedToInteract)
-            {
-                ExitInspection();
             }
         }
     }
 
     private void Update()
     {
-        if (m_Renderer.isVisible && (player.transform.position - currentObjectPos).sqrMagnitude < detectionDistance * detectionDistance)
+        if (canInteract)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                hasPressedToInteract = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) && hasPressedToInteract)
+            {
+                hasPressedToInteract = false;
+            }
+        }
+
+        if (hasPressedToInteract)
+        {
+            hasBeenHighlighted = true;
+            StartInspection();
+            text.text = null;
+        }
+        else if (!hasPressedToInteract)
+        {
+            ExitInspection();
+        }
+
+        if (m_Renderer.isVisible &&
+            (player.transform.position - oldObjectPos).sqrMagnitude < detectionDistance * detectionDistance &&
+            !hasBeenHighlighted)
         {
             HighlightItem();
+        }
+        else
+        {
+            HighlightDisable();
+        }
+
+        if (outline.enabled)
+        {
+            if (!timeReached)
+            {
+                timeSpeed += Time.deltaTime;
+                
+                if (timeSpeed >= 4)
+                {
+                    timeReached = true;
+                }
+            }
+            else
+            {
+                timeSpeed -= Time.deltaTime;
+
+                if (timeSpeed <= 0)
+                {
+                    timeReached = false;
+                }
+                
+            }
+
+            outline.OutlineWidth = Mathf.Lerp(outline.OutlineWidth, timeSpeed, Time.deltaTime * blinkSpeed);
+
         }
     }
 
@@ -96,35 +169,62 @@ public class InspectObjectScript : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            hasPressedToInteract = false;
             text.text = null;
+            if (!hasPressedToInteract)
+            {
+                canInteract = false;
+            }
         }
     }
 
     private void HighlightItem()
     {
         // Highlight the item so the player knows theres an interactable there
-        Debug.Log("hi");
+        outline.enabled = true;
+    }
+
+    private void HighlightDisable()
+    {
+        outline.enabled = false;
     }
 
     private void StartInspection()
     {
         // Blur Background except for Item being Inspected
         // Move Object to front of camera
+        currentItemObject.transform.position = Vector3.Lerp(currentItemObject.transform.position,
+            mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cameraOffset)), transitionSpeed);
+        // Rotate Object Towards Camera
+        if(currentItemObject.transform.rotation != mainCamera.transform.rotation)
+        currentItemObject.transform.rotation = Quaternion.Lerp(currentItemObject.transform.rotation, mainCamera.transform.rotation, transitionSpeed);
         // Scale Object to camera? 
+        currentItemObject.transform.localScale =
+            Vector3.Lerp(currentItemObject.transform.localScale, InspectionScale, transitionSpeed);
         // Activate Inspection Controller
         InspectionController();
         // Deactivate Camera Controller & Player controller
+        playerController.enabled = false;
+        cameraContoller.enabled = false;
         // Play Audio file
     }
     private void ExitInspection()
     {
         // Move object back into original position
+        currentItemObject.transform.position = Vector3.Lerp(currentItemObject.transform.position,
+            oldObjectPos, transitionSpeed);
+        // Change Rotation the the original
+        if(currentItemObject.transform.rotation != oldObjectRot)
+            currentItemObject.transform.rotation = Quaternion.Lerp(currentItemObject.transform.rotation, oldObjectRot, transitionSpeed);
         // Change Scale to original Scale
+        currentItemObject.transform.localScale =
+            Vector3.Lerp(currentItemObject.transform.localScale, oldScale, transitionSpeed);
         // remove the blur effect
         // Blur the background
         // Deactivate Inspection Controller
         // Activate Camera controller + Player controller
+        playerController.enabled = true;
+        cameraContoller.enabled = true;
+        hasPressedToInteract = false;
     }
 
     private void InspectionController()
@@ -132,5 +232,5 @@ public class InspectObjectScript : MonoBehaviour
         // Make camera rotate around the object with mouse input
         // Make W & S Zoom in & Zoom out
     }
-
+    
 }

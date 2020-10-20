@@ -416,6 +416,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 730688190}
   m_CullTransparentMesh: 0
+--- !u!1 &803359899 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8622426514039818632, guid: 179a82ca10569ed4981f6ca861766456, type: 3}
+  m_PrefabInstance: {fileID: 8622426515076438975}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1076640685
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,9 +701,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: ec79ab30efc93ea40b22600286063cb6, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: ec79ab30efc93ea40b22600286063cb6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2663d9ecc268cec4597fec75c7e541f8, type: 2}
+    - target: {fileID: -7635826562936255635, guid: ec79ab30efc93ea40b22600286063cb6, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1eaa98d8b6dff4841a082c6b14047dfe, type: 2}
     - target: {fileID: 919132149155446097, guid: ec79ab30efc93ea40b22600286063cb6, type: 3}
       propertyPath: m_Name
       value: Keycard
@@ -872,6 +885,7 @@ GameObject:
   - component: {fileID: 1826658796}
   - component: {fileID: 1826658800}
   - component: {fileID: 1826658801}
+  - component: {fileID: 1826658802}
   m_Layer: 0
   m_Name: InspectableObject
   m_TagString: Untagged
@@ -980,12 +994,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bb758ceb17c23409b2eae5f3a1ef59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8622426515076438978}
+  player: {fileID: 803359899}
   text: {fileID: 1354368084}
   detectionDistance: 25
+  cameraOffset: 1.5
+  InspectionScale: {x: 0.5, y: 0.5, z: 0.5}
+  blinkSpeed: 50
+  transitionSpeed: 0.5
   itemName: Test
   itemDescripion: Test
   interactionMessage: Press E To Interact
+  timeSpeed: 0
+--- !u!114 &1826658802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826658795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 0.8980392, b: 0.29803923, a: 1}
+  outlineWidth: 3.68
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2032249946
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,8 +1215,3 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1 &8622426515076438978 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8622426513517363909, guid: 179a82ca10569ed4981f6ca861766456, type: 3}
-  m_PrefabInstance: {fileID: 8622426515076438975}
-  m_PrefabAsset: {fileID: 0}
