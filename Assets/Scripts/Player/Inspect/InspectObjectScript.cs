@@ -8,9 +8,11 @@ public class InspectObjectScript : MonoBehaviour
 {
     // Public Variables
     
-    [Header("Player & Target")]
+    [Header("Player & Target & Main Camera")]
     [Required]
     public GameObject player;
+    public Camera mainCamera;
+    public Camera inspecCamera;
 
     private GameObject currentItemObject;
 
@@ -27,6 +29,9 @@ public class InspectObjectScript : MonoBehaviour
     [Header("Object Scale")]
     public Vector3 InspectionScale;
     private Vector3 oldScale;
+    
+    [Header("Object Rotation")]
+    public Quaternion InspectionRotation;
     
     [Header("Blink Speed")]
     public float blinkSpeed;
@@ -47,12 +52,10 @@ public class InspectObjectScript : MonoBehaviour
 
     private CameraContoller cameraContoller;
     private PlayerController playerController;
+    private InspectionCamera inspectionCamera;
 
     private Outline outline;
-
-    // Camera
-    private Camera mainCamera;
-
+    
     // Renderer
     private MeshRenderer m_Renderer;
 
@@ -73,8 +76,8 @@ public class InspectObjectScript : MonoBehaviour
         currentItemObject = this.gameObject;
         
         m_Renderer = this.gameObject.GetComponent<MeshRenderer>();
-        mainCamera = Camera.main;
         cameraContoller = mainCamera.GetComponent<CameraContoller>();
+        inspectionCamera = inspecCamera.GetComponent<InspectionCamera>();
         oldObjectPos = currentItemObject.transform.localPosition;
         oldObjectRot = currentItemObject.transform.localRotation;
 
@@ -220,17 +223,28 @@ public class InspectObjectScript : MonoBehaviour
             Vector3.Lerp(currentItemObject.transform.localScale, oldScale, transitionSpeed);
         // remove the blur effect
         // Blur the background
-        // Deactivate Inspection Controller
-        // Activate Camera controller + Player controller
-        playerController.enabled = true;
-        cameraContoller.enabled = true;
-        hasPressedToInteract = false;
+        // Activate Camera controller + Player controller & Deactivate Inspection Controller
+        PlayerCameraController();
     }
 
     private void InspectionController()
     {
-        // Make camera rotate around the object with mouse input
-        // Make W & S Zoom in & Zoom out
+        // Make camera rotate around the object with mouse input & Make W & S Zoom in & Zoom out
+        inspectionCamera.objectToInpect = currentItemObject;
+        inspecCamera.GetComponent<Camera>().enabled = true;
+        mainCamera.GetComponent<Camera>().enabled = false;
+        inspectionCamera.inspectionState = true;
+    }
+
+    private void PlayerCameraController()
+    {
+        inspectionCamera.objectToInpect = null;
+        mainCamera.GetComponent<Camera>().enabled = true;
+        inspecCamera.GetComponent<Camera>().enabled = false;
+        playerController.enabled = true;
+        cameraContoller.enabled = true;
+        hasPressedToInteract = false;
+        inspectionCamera.inspectionState = false;
     }
     
 }
