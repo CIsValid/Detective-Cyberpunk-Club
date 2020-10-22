@@ -11,8 +11,7 @@ public class InspectObjectScript : MonoBehaviour
     [Header("Player & Target & Main Camera")]
     [Required]
     public GameObject player;
-    public Camera mainCamera;
-    public Camera inspecCamera;
+    private Camera mainCamera;
 
     private GameObject currentItemObject;
 
@@ -31,13 +30,11 @@ public class InspectObjectScript : MonoBehaviour
     private Vector3 oldScale;
     
     [Header("Object Rotation")]
-    public Quaternion InspectionRotation;
+    public Quaternion InspectionRotation = Quaternion.Euler(1f,0f,0f);
     
     [Header("Blink Speed")]
-    public float blinkSpeed;
-    
-    [Header("Transition Speed")]
-    public float transitionSpeed = 10f;
+    public float blinkSpeed = 50f;
+    private float transitionSpeed = 0.5f;
 
     [Header("Item Info")]
     public string itemName;
@@ -52,7 +49,6 @@ public class InspectObjectScript : MonoBehaviour
 
     private CameraContoller cameraContoller;
     private PlayerController playerController;
-    private InspectionCamera inspectionCamera;
 
     private Outline outline;
     
@@ -64,7 +60,7 @@ public class InspectObjectScript : MonoBehaviour
     private bool hasPressedToInteract;
     private bool hasBeenHighlighted;
 
-    public float timeSpeed = 4;
+    public float timeSpeed = 0;
 
     private bool timeReached;
 
@@ -72,12 +68,12 @@ public class InspectObjectScript : MonoBehaviour
 
     private void Start()
     {
+        mainCamera = Camera.main;
         playerController = player.GetComponent<PlayerController>();
         currentItemObject = this.gameObject;
         
         m_Renderer = this.gameObject.GetComponent<MeshRenderer>();
         cameraContoller = mainCamera.GetComponent<CameraContoller>();
-        inspectionCamera = inspecCamera.GetComponent<InspectionCamera>();
         oldObjectPos = currentItemObject.transform.localPosition;
         oldObjectRot = currentItemObject.transform.localRotation;
 
@@ -125,7 +121,7 @@ public class InspectObjectScript : MonoBehaviour
             StartInspection();
             text.text = null;
         }
-        else if (!hasPressedToInteract)
+        if (!hasPressedToInteract)
         {
             ExitInspection();
         }
@@ -199,16 +195,13 @@ public class InspectObjectScript : MonoBehaviour
             mainCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, cameraOffset)), transitionSpeed);
         // Rotate Object Towards Camera
         if(currentItemObject.transform.rotation != mainCamera.transform.rotation)
-        currentItemObject.transform.rotation = Quaternion.Lerp(currentItemObject.transform.rotation, mainCamera.transform.rotation, transitionSpeed);
+        currentItemObject.transform.rotation = Quaternion.Lerp(currentItemObject.transform.rotation, mainCamera.transform.rotation * InspectionRotation, transitionSpeed);
         // Scale Object to camera? 
         currentItemObject.transform.localScale =
             Vector3.Lerp(currentItemObject.transform.localScale, InspectionScale, transitionSpeed);
+        // Play Audio file
         // Activate Inspection Controller
         InspectionController();
-        // Deactivate Camera Controller & Player controller
-        playerController.enabled = false;
-        cameraContoller.enabled = false;
-        // Play Audio file
     }
     private void ExitInspection()
     {
@@ -222,29 +215,23 @@ public class InspectObjectScript : MonoBehaviour
         currentItemObject.transform.localScale =
             Vector3.Lerp(currentItemObject.transform.localScale, oldScale, transitionSpeed);
         // remove the blur effect
-        // Blur the background
         // Activate Camera controller + Player controller & Deactivate Inspection Controller
-        PlayerCameraController();
+        if(Input.GetKeyDown(KeyCode.Escape)) ExitInspectionController();
     }
 
     private void InspectionController()
     {
-        // Make camera rotate around the object with mouse input & Make W & S Zoom in & Zoom out
-        inspectionCamera.objectToInpect = currentItemObject;
-        inspecCamera.GetComponent<Camera>().enabled = true;
-        mainCamera.GetComponent<Camera>().enabled = false;
-        inspectionCamera.inspectionState = true;
+        // Deactivate Camera Controller & Player controller
+        playerController.enabled = false;
+        cameraContoller.enabled = false;
+        // Make object rotate around with mouse input & Make W & S Zoom in & Zoom out
     }
 
-    private void PlayerCameraController()
+    private void ExitInspectionController()
     {
-        inspectionCamera.objectToInpect = null;
-        mainCamera.GetComponent<Camera>().enabled = true;
-        inspecCamera.GetComponent<Camera>().enabled = false;
         playerController.enabled = true;
         cameraContoller.enabled = true;
         hasPressedToInteract = false;
-        inspectionCamera.inspectionState = false;
     }
     
 }
