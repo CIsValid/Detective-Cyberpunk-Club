@@ -113,8 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 5b96b70a52266974bad03994420f7787, type: 3}
-  - {fileID: 8300000, guid: a6993411cf7a6424d836c51b1a69a194, type: 3}
+  - {fileID: 8300000, guid: 1cafaeac545ec6a4b8337609c464522c, type: 3}
+  - {fileID: 8300000, guid: df1da59bb40d56547aa4ef3915683c2a, type: 3}
+  walkSpeed: 0.55
+  runSpeed: 0.3
 --- !u!114 &8622426514039818629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,13 +129,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b87bd9090fd56a845b44d8dd0dc8cf33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 8
+  walkSpeed: 6
   runSpeed: 11
   gravity: -12
   jumpHeight: 1
   airControlPercent: 1
   turnSmoothTime: 0
   speedSmoothTime: 0
+  audioRun: 0
   isMoving: 0
 --- !u!114 &9021615025857713935
 MonoBehaviour:
@@ -165,9 +168,9 @@ AudioSource:
   m_GameObject: {fileID: 8622426514039818632}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5b96b70a52266974bad03994420f7787, type: 3}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 25fee2d825c01f746a89adb98bf549a8, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -378,7 +381,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 823

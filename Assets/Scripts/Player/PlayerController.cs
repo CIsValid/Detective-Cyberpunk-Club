@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 	Transform cameraT;
 	CharacterController controller;
 
+	public bool audioRun;
+
     [Header("Character Movement Check")]
     public bool isMoving;
 
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 inputDir = input.normalized;
         bool running = Input.GetKey(KeyCode.LeftShift);
+        audioRun = Input.GetKey(KeyCode.LeftShift);
 
         Move(inputDir, running);
 
