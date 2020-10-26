@@ -57,7 +57,7 @@ public class InspectObjectScript : MonoBehaviour
 
     // Bool
 
-    private bool hasPressedToInteract;
+    public bool hasPressedToInteract;
     private bool hasBeenHighlighted;
 
     public float timeSpeed = 0;
@@ -65,6 +65,10 @@ public class InspectObjectScript : MonoBehaviour
     private bool timeReached;
 
     private bool canInteract;
+
+    public bool completed;
+
+    public bool destroyAfter;
 
     private void Start()
     {
@@ -88,7 +92,7 @@ public class InspectObjectScript : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            if (!hasPressedToInteract && m_Renderer.isVisible)
+            if (!hasPressedToInteract && m_Renderer.isVisible && !completed)
             {
                 text.text = interactionMessage;
                 canInteract = true;
@@ -111,7 +115,19 @@ public class InspectObjectScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape) && hasPressedToInteract)
             {
-                hasPressedToInteract = false;
+                if (!destroyAfter && !completed)
+                {
+                    hasPressedToInteract = false;
+                }
+                else
+                {
+                    completed = true;
+                    playerController.enabled = true;
+                    cameraContoller.enabled = true;
+                    hasPressedToInteract = false;
+                    
+                    this.GetComponent<Completed>().completed = true;
+                }
             }
         }
 
@@ -120,6 +136,7 @@ public class InspectObjectScript : MonoBehaviour
             hasBeenHighlighted = true;
             StartInspection();
             text.text = null;
+
         }
         if (!hasPressedToInteract)
         {
@@ -162,6 +179,7 @@ public class InspectObjectScript : MonoBehaviour
             outline.OutlineWidth = Mathf.Lerp(outline.OutlineWidth, timeSpeed, Time.deltaTime * blinkSpeed);
 
         }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -216,7 +234,7 @@ public class InspectObjectScript : MonoBehaviour
             Vector3.Lerp(currentItemObject.transform.localScale, oldScale, transitionSpeed);
         // remove the blur effect
         // Activate Camera controller + Player controller & Deactivate Inspection Controller
-        if(Input.GetKeyDown(KeyCode.Escape)) ExitInspectionController();
+        if(Input.GetKeyDown(KeyCode.Escape) && hasPressedToInteract) ExitInspectionController();
     }
 
     private void InspectionController()
@@ -224,14 +242,17 @@ public class InspectObjectScript : MonoBehaviour
         // Deactivate Camera Controller & Player controller
         playerController.enabled = false;
         cameraContoller.enabled = false;
+        // Set interaction to Complete
         // Make object rotate around with mouse input & Make W & S Zoom in & Zoom out
+
     }
 
     private void ExitInspectionController()
     {
+        completed = true;
         playerController.enabled = true;
         cameraContoller.enabled = true;
         hasPressedToInteract = false;
+
     }
-    
 }
