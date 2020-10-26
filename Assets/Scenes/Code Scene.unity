@@ -308,6 +308,7 @@ MonoBehaviour:
   itemDescripion: Test
   interactionMessage: Press E To Interact
   timeSpeed: 0
+  completed: 0
 --- !u!135 &328930314
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1026,6 +1027,7 @@ MonoBehaviour:
   itemDescripion: Test
   interactionMessage: Press E To Interact!!
   timeSpeed: 0
+  completed: 0
 --- !u!114 &1529299679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1193,7 @@ MonoBehaviour:
   itemDescripion: Test
   interactionMessage: Press E To Interact
   timeSpeed: 0
+  completed: 0
 --- !u!114 &1826658802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,7 +1385,7 @@ GameObject:
   - component: {fileID: 1529299677}
   - component: {fileID: 1529299679}
   m_Layer: 0
-  m_Name: default
+  m_Name: KeyCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
