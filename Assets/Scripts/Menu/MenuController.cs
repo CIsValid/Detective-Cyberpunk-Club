@@ -11,10 +11,10 @@ public class MenuController : MonoBehaviour
     public GameObject currentPanel;
     public GameObject exitPromptPanel;
 
-    public Vector3 newPlayerPos;
+    public Vector3 newPlayerPos = new Vector3(-62f,3.017f,-15.447f);
 
-    public float doorTimer = 1f;
-    public float playerTimer = 1f;
+    public float doorTimer = 4f;
+    public float playerTimer = 3f;
     public float timeBeforeWalk = 1f;
 
     private bool pressedPlay;
