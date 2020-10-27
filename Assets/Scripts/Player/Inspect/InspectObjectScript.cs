@@ -224,7 +224,7 @@ public class InspectObjectScript : MonoBehaviour
     private void ExitInspection()
     {
         // Move object back into original position
-        currentItemObject.transform.position = Vector3.Lerp(currentItemObject.transform.position,
+        currentItemObject.transform.localPosition = Vector3.Lerp(currentItemObject.transform.localPosition,
             oldObjectPos, transitionSpeed);
         // Change Rotation the the original
         if(currentItemObject.transform.rotation != oldObjectRot)

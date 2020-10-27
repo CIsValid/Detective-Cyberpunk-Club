@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Lyskaster
   - keycard
+  - elecbutton
+  - roboticarm
   layers:
   - Default
   - TransparentFX
