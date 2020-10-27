@@ -13,6 +13,8 @@ public class VIPDoor : MonoBehaviour
     private Renderer rend;
     private AudioSource audioSource;
 
+    private bool hasPlayedSound;
+
     private void Start()
     {
         if (!audioSource)
@@ -51,7 +53,12 @@ public class VIPDoor : MonoBehaviour
                     doorToAffect.GetComponent<BoxCollider>().enabled = false;
                     
                     // Play sound
-                    audioSource.Play();
+
+                    if (!hasPlayedSound)
+                    {
+                        audioSource.Play();
+                        hasPlayedSound = true;
+                    }
                 }
             }
         }
