@@ -6,7 +6,8 @@ public class MenuController : MonoBehaviour
     public GameObject player;
     public GameObject camera;
     public GameObject door;
-    public AudioClip voicelinesstart;
+    public AudioSource dialogueSource;
+    public AudioClip openingCall;
 
     public GameObject currentPanel;
     public GameObject exitPromptPanel;
@@ -19,6 +20,7 @@ public class MenuController : MonoBehaviour
 
     private bool pressedPlay;
     private bool playerInside;
+    private bool hasHadIntro;
     
     private void Start()
     {
@@ -81,10 +83,15 @@ public class MenuController : MonoBehaviour
 
     public void StartGame()
     {
-        player.GetComponent<AudioSource>().clip = voicelinesstart;
         currentPanel.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        if (!hasHadIntro)
+        {
+            dialogueSource.clip = openingCall;
+            dialogueSource.Play();
+        }
+
         pressedPlay = true;
 
     }
