@@ -42247,7 +42247,7 @@ MonoBehaviour:
   exitPromptPanel: {fileID: 482882750}
   newPlayerPos: {x: -62, y: 3.017, z: -15.447}
   doorTimer: 20
-  playerTimer: 3
+  playerTimer: 2.5
   timeBeforeWalk: 1
 --- !u!4 &1132733738
 Transform:
@@ -51358,7 +51358,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00018310547}
+  m_AnchoredPosition: {x: 0, y: 0.00024414062}
   m_SizeDelta: {x: 0, y: -0.00036621094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1364078927
@@ -92722,6 +92722,8 @@ MonoBehaviour:
   talkAboutDevice: {fileID: 8300000, guid: cb94ddb19c3b7cb4985730cf94a9529b, type: 3}
   hasPressedButton: 0
   hasKeyCard: 0
+  hasKeyCardCallable: 0
+  hasButtonCallable: 0
 --- !u!1 &8622426514881758546
 GameObject:
   m_ObjectHideFlags: 0
