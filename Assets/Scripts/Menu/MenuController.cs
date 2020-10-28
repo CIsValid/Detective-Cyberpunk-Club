@@ -51,7 +51,7 @@ public class MenuController : MonoBehaviour
 
                         if (timeBeforeWalk <= 0)
                         {
-                            player.transform.position = Vector3.Lerp(player.transform.position, newPlayerPos, 0.008f);
+                            player.transform.position = Vector3.Lerp(player.transform.position, newPlayerPos, 0.03f);
 
                         }
 
