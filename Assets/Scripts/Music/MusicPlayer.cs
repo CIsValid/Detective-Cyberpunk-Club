@@ -8,7 +8,7 @@ namespace Music
     [RequireComponent(typeof(AudioSource))]
     public class MusicPlayer : MonoBehaviour
     {
-        [Header("Audio Source")] [Required]    
+        [Header("Audio Source")]
         public AudioSource audioSource;
         
         public List<AudioClip> playlist = new List<AudioClip>();

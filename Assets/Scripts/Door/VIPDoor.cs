@@ -43,7 +43,7 @@ public class VIPDoor : MonoBehaviour
             {
                 // Check if he has interacted with keycard
 
-                if (playerManager.hasKeyCard)
+                if (playerManager.hasKeyCardCallable)
                 {
                     // change material on door
 

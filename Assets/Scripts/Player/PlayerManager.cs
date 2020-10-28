@@ -16,19 +16,29 @@ public class PlayerManager : MonoBehaviour
 
     public bool hasPressedButton;
     public bool hasKeyCard;
+
+    public bool hasKeyCardCallable;
+    public bool hasButtonCallable;
     
-    private Completed completedkey;
-    private Completed completedelecbutton;
+    //private Completed completedkey;
+    private InspectObjectScript completedkey;
+    //private Completed completedelecbutton;
+    private InspectObjectScript completedelecbutton;
     private bool hasTalkedAboutKey;
     private bool hasTalkedAboutButton;
+    private Completed completedkeyConfirm;
+    private Completed completedelecbuttonConfirm;
+
     private void Start()
     {
         // find key with tag
         keyCard = GameObject.FindGameObjectWithTag("keycard");
-        completedkey = keyCard.GetComponent<Completed>();
+        completedkeyConfirm = keyCard.GetComponent<Completed>();
+        completedkey = keyCard.GetComponent<InspectObjectScript>();
         // find button with tag
         elecButton = GameObject.FindGameObjectWithTag("elecbutton");
-        completedelecbutton = elecButton.GetComponent<Completed>();
+        completedelecbuttonConfirm = elecButton.GetComponent<Completed>();
+        completedelecbutton = elecButton.GetComponent<InspectObjectScript>();
     }
 
     private void Update()
@@ -36,7 +46,10 @@ public class PlayerManager : MonoBehaviour
         // set bool to true or false depending on their interaction status here
         if (keyCard)
         {
-            hasKeyCard = completedkey.completed;
+            //hasKeyCard = completedkey.completed;
+            hasKeyCard = completedkey.hasPressedToInteract;
+            hasKeyCardCallable = completedkeyConfirm.completed;
+
 
             if (!hasTalkedAboutKey && hasKeyCard)
             {
@@ -51,7 +64,8 @@ public class PlayerManager : MonoBehaviour
         
         if (elecButton && keyCard)
         {
-            hasPressedButton = completedelecbutton.completed;
+            hasPressedButton = completedelecbutton.hasPressedToInteract;
+            hasButtonCallable = completedelecbuttonConfirm.completed;
 
             if (!hasTalkedAboutButton && hasPressedButton)
             {
@@ -64,6 +78,5 @@ public class PlayerManager : MonoBehaviour
         }
 
     }
-    
-    
+
 }

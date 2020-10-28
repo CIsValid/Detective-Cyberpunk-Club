@@ -6,7 +6,6 @@ public class InteractionScript : MonoBehaviour
 {
     [Header("Main Interaction Params")]
     [SerializeField]
-    [Required]
     private Transform parentPickUp;
     public GameObject currentInteractedItem;
     private Rigidbody itemPickupRB;

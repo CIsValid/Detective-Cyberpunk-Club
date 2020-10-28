@@ -9,14 +9,12 @@ public class InspectObjectScript : MonoBehaviour
     // Public Variables
     
     [Header("Player & Target & Main Camera")]
-    [Required]
     public GameObject player;
     private Camera mainCamera;
 
     private GameObject currentItemObject;
 
     [Header("Text Object")]
-    [Required]
     public Text text;
 
     [Header("Distance To Start Highlight")]
@@ -135,7 +133,7 @@ public class InspectObjectScript : MonoBehaviour
         {
             hasBeenHighlighted = true;
             StartInspection();
-            text.text = null;
+            text.text = "Press ESC To Exit Inspection";
 
         }
         if (!hasPressedToInteract)
@@ -178,6 +176,11 @@ public class InspectObjectScript : MonoBehaviour
 
             outline.OutlineWidth = Mathf.Lerp(outline.OutlineWidth, timeSpeed, Time.deltaTime * blinkSpeed);
 
+        }
+
+        if (completed)
+        {
+            text.text = null;
         }
 
     }
@@ -250,6 +253,7 @@ public class InspectObjectScript : MonoBehaviour
     private void ExitInspectionController()
     {
         completed = true;
+        text.text = null;
         playerController.enabled = true;
         cameraContoller.enabled = true;
         hasPressedToInteract = false;

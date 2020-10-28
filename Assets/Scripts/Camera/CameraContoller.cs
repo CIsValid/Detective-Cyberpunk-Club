@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraContoller : MonoBehaviour
 {
     [Header("Camera Target")]
-    [Required]
     public GameObject target;
     private Transform cameraPos;
     private Vector3 targetCameraBobPos;
